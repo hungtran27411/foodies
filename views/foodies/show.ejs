@@ -1,0 +1,82 @@
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+	<nav>
+        <img src="/images/images.jpg">
+        <a href="/foodies">Existing Reservations</a>
+        <% if (user) { %>
+        <a href="/foodies/new">Create New Reservation </a>
+        <a href="/foodies/new">Add Restaurant</a>
+        <a href="/foodies">All Reservations</a>
+        <a href="/logout">LOG OUT</a>
+          <% } else { %>
+            <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
+          <% } %>
+        </nav>
+	<main>
+		<section id="show-page">
+			<div>Your Reservation Number is: </div>
+            <div>
+				<%= foodie.id%>
+            </div>
+            <div>The Name on the Reservation : </div>
+			<div>
+				<form action="/foodies/<%= foodie.id %>?_method=PUT" method="POST">
+                    <!-- Include other form inputs as needed -->
+                    <input type="text" name="nameOnReserv" value="<%= foodie.nameOnReserv %>">
+                    <!-- Submit button to submit the updated nameOnReserv -->
+                    <button type="submit">Update </button>
+                </form>
+            </div> 
+            <div>The Cuisine : </div>
+			
+            <form action="/foodies/<%= foodie.id %>?_method=PUT" method="POST">
+                <select name="typeOfFood">
+					<option value="Thai">Thai</option>
+					<option value="Korean">Korean</option>
+					<option value="Japanese">Japanese</option>
+					<option value="Italian">Italian</option>
+				</select>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+        <div>The Restaurant Name: </div>
+        <div>
+            <%= foodie.typeOfFood%>
+        </div>
+        <div>The Retaraurants Address</div>
+        <div>
+            <%= foodie.typeOfFood%>
+        </div>
+        <div>The date of your reservation: </div>
+        <div>
+            <%= foodie.date %>  
+                
+            <form action="/foodies/<%= foodie.id %>?_method=PUT" method="POST">
+				<input type="date" name="date"> 
+                <button type="submit">Update </button>
+            </form>
+        </div>
+        <div>Minimum star rating: </div>
+        <div>
+            <%= foodie.reviewRating%>
+        </div>
+        <div>Your number of guests: </div>
+        <div>
+            <%= foodie.numberOfGuest%>
+        </div>
+        <form action="/foodies/<%= foodie.id %>?_method=DELETE" method="POST">
+            <button type="submit">Delete Reservation</button>
+        </form>
+       
+        </main>
+    </body>
+    
+    </html>
+   

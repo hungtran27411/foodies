@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+	<nav>
+		<img src="/images/images.jpg">
+		<a href="/foodies/">Existing Reservations</a>
+		<% if (user) { %>
+			<a href="/foodies/new">Create New Reservation </a>
+			<a href="/restaurants/new">Add Restaurant</a>
+			<a href="/foodies">All Reservations</a>
+			<a href="/logout">LOG OUT</a>
+			  <% } else { %>
+				<a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
+			  <% } %>
+
+		
+	</nav>
+	<main>
+		<h2>Recommend a new restaurant here!</h2>
+		<form action="/restaurants" method="POST">
+			<label>Name on the restaurant
+				<input type="text" name="restName">
+			</label><br>
+            <label>Address
+				<input type="text" name="restAdd">
+			</label><br>
+            <label>contact number
+				<input type="text" name="restPhone">
+			</label><br>
+			<label>cuisine:
+				<select name="typeOfFood">
+					<option value="Thai">Thai</option>
+					<option value="Korean">Korean</option>
+					<option value="Japanese">Japanese</option>
+					<option value="Italian">Italian</option>
+				</select>
+			</label><br>
+			
+			<label>Customer Reviews
+				<select name="reviewRating">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+			</label><br>
+	
+			
+			</label><br>
+			<button type="submit">Add</button>
+		</form>
+
+	</main>
+</body>
+
+</html>
