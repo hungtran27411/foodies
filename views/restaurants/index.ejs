@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TITLE</title>
+    
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <nav>
+      <img src="/images/images.jpg">
+      
+      <% if (user) { %>
+      <a href="/foodies/new">Create New Reservation </a>
+      <a href="/restaurants/new">Add Restaurant</a>
+      <a href="/foodies">All Reservations</a>
+      <a href="/restaurants">All Restaurants</a>
+      <a href="/logout">LOG OUT</a>
+		<% } else { %>
+		  <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
+		<% } %>
+     
+    </nav>
+    <main>
+    <table id="list">
+      <thead>
+        <tr>
+        <th>Restaurants</th>  
+        <th>Address</th>  
+        <th>Phone Number</th>
+        <th>Type of Food Served</th>
+        <th>Average Customer Ratings</th>
+        <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% restaurantDocs.forEach(function(r) { %>
+        <tr>
+          <td><%= r.restName %></td>
+          <td><%= r.restAdd %></td>
+          <td><%= r.restPhone %></td>
+          <td><%= r.typeOfFood %></td>
+          <td><%= r.reviewRating %></td>
+          <td>
+            <a href="/restaurants/<%= r._id %>">Details</a>
+            
+            </button>
+          </td>
+        </tr>
+        <% }); %>
+        </tbody>
+      
+      </table>
+      
+    </main>
+  </body>
+  
+  </html>

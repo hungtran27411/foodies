@@ -2,73 +2,85 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body>
-	<nav>
-		<img src="/images/images.jpg">
-		<a href="/foodies/">Existing Reservations</a>
-		<% if (user) { %>
-			<a href="/foodies/new">Create New Reservation </a>
-			<a href="/restaurants/new">Add Restaurant</a>
-			<a href="/foodies">All Reservations</a>
-			<a href="/logout">LOG OUT</a>
-			  <% } else { %>
-				<a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
-			  <% } %>
+    <nav>
+        <img src="/images/images.jpg">
+        <a href="/foodies/">Existing Reservations</a>
+        <% if (user) { %>
+            <a href="/foodies/new">Create New Reservation </a>
+            <a href="/restaurants/new">Add Restaurant</a>
+            <a href="/foodies">All Reservations</a>
+            <a href="/restaurants">All Restaurants</a>
+            <a href="/logout">LOG OUT</a>
+        <% } else { %>
+            <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
+        <% } %>
+    </nav>
+    <main>
+        <h2>Welcome to Foodie's Reservation</h2>
+        <form action="/foodies" method="POST">
+            <label>Name on the reservation
+                <input type="text" name="nameOnReserv">
+            </label><br>
+            <label>Restaurant Name:</label>
+                <select name="restName">
+                    <% restaurants.forEach(function(restaurant) { %>
+                        <option value="<%= restaurant._id %>"><%= restaurant.restName %></option>
+                    <% }); %>
+                </select>
+            <div></div>
+            <label>Restaurants Address:</label>
+            <span id="restAdd"></span><br>
+            <label>Phone Number:</label>
+            <span id="restPhone"></span><br>
+            <label>Type of Food:</label>
+            <span id="typeOfFood"></span><br>
+            <label>Customer Ratings:</label>
+            <span id="reviewRating"></span><br>
 
-		
-	</nav>
-	<main>
-		<h2>Welcome to Foodie's Reservation</h2>
-		<form action="/foodies" method="POST">
-			<label>Name on the reservation
-				<input type="text" name="nameOnReserv">
-			</label><br>
-			<label>cuisine:
-				<select name="typeOfFood">
-					<option value="Thai">Thai</option>
-					<option value="Korean">Korean</option>
-					<option value="Japanese">Japanese</option>
-					<option value="Italian">Italian</option>
-				</select>
-			</label><br>
-			<label>Date of disired reservation:
-				<input type="date" name="date"> 
-				
-			</label><br>
-			<label>Review Star Ratings from customers
-				<select name="reviewRating">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-				</select>
-			</label><br>
-	
-			<label>Number of People:
-				<select name="numberOfGuest">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
-					<option value="10">10</option>
-				</select>
-			</label><br>
-			<button type="submit">Add</button>
-		</form>
+            <label>Number of People:
+                <select name="numberOfGuest">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </label><br>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+    
+    <script>
+        // Get the select element for restaurant name
+        const restNameSelect = document.querySelector('select[name="restName"]');
+        // Get the spans for displaying additional restaurant information
+        const restAddSpan = document.getElementById('restAdd');
+        const restPhoneSpan = document.getElementById('restPhone');
+        const typeOfFoodSpan = document.getElementById('typeOfFood');
+        const reviewRatingSpan = document.getElementById('reviewRating');
 
-	</main>
+        // Add event listener for change event on restaurant name select element
+        restNameSelect.addEventListener('change', async function() {
+            const selectedRestaurantId = this.value;
+            const response = await fetch(`/restaurants/${selectedRestaurantId}`);
+            const htmlContent = await response.text();
+
+            // Update the content of the restAddSpan with the HTML received from the server
+            restAddSpan.innerHTML = htmlContent;
+        });
+    </script>
 </body>
 
 </html>

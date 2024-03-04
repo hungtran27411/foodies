@@ -1,5 +1,4 @@
-// import our model so we can talk to the database and performs
-// our CRUD operations
+
 const { default: mongoose } = require('mongoose')
 const restaurantModel = require('../models/restaurant');
 
@@ -82,11 +81,11 @@ async function create(req, res) {
 	try {
 		const createdRestaurantDoc = await restaurantModel.create(req.body); 
 		console.log(createdRestaurantDoc);
-	  	res.redirect('restaurants/new') ///views/restaurants/new
+	  	res.redirect('/restaurants') ///views/restaurants/new
   
 	} catch (err) {
 	  console.log(err);
-	  res.render("restaurants/new");
+	  res.render("restaurants");
 	}
 }
 // 3. Update

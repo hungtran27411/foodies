@@ -1,7 +1,8 @@
 // import our model so we can talk to the database and performs
 // our CRUD operations
-const { default: mongoose } = require('mongoose')
 const FoodieModel = require('../models/foodies');
+const restaurantModel = require('../models/restaurant')
+const { default: mongoose } = require('mongoose')
 
 
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
 	index,
 	show,
 	update: updateName,
-	update: updateTypeOfFood
+	
 
 }	
 
@@ -27,10 +28,20 @@ async function index(req, res){
 		// We want our model to go to the database and get all the movies
 		// .find({}) is mongoose model query method
 		const foodieDocumentsFromTheDB = await FoodieModel.find({})
+		const restaurantDocumentsFromTheDB = await restaurantModel.find({});
+		console.log(restaurantDocumentsFromTheDB) 
+
+		
+		//const foodies = await Foodie.find().populate('restaurant');
+		//const foodieDocumentsFromTheDB = await FoodieModel.find().populate('restaurant');
 		console.log(foodieDocumentsFromTheDB)
 		// then we want to send a ejs page with all the movies to the browser
 		// movies/index is looking in the views folder for the ejs page
-		res.render('foodies/index', {foodieDocs: foodieDocumentsFromTheDB})
+		res.render('foodies/index', { 
+			foodieDocs: foodieDocumentsFromTheDB, 
+			restaurantDocs: restaurantDocumentsFromTheDB 
+		})
+		
 		// movieDocs is now a variables inside of views/movies/index.ejs 
 	} catch(err){
 		console.log(err)
@@ -47,11 +58,8 @@ async function show(req, res) {
 			// router.get('/:id', movieCtrl.show);
 		  const foodieFromTheDatabase = await FoodieModel
 											  .findById(req.params.id)
-										 	  .exec()				//  cast: [{ <--- movie Model
-															//     type: Schema.Types.ObjectId, // this is from mongoose
-															//     ref: 'Performer' // Performer is referencing the model name that 
-															//     // you are creating the relationship with, mongoose.model('Performer', performerSchema);
-															//   }],
+										 	  .exec()
+											   .populate('restName'); 				
 										
 										
 	  
@@ -122,9 +130,15 @@ async function deleteOne(req, res) {
 	  res.send(err);
 	}
 }
+
   
-  
-function newFoodie(req, res){
-	
-	res.render('foodies/new')
+
+async function newFoodie(req, res) {
+    try {
+        const restaurants = await restaurantModel.find({}, 'restName'); // Only fetch the restaurant names
+        res.render('foodies/new', { restaurants: restaurants });
+    } catch (err) {
+        console.log(err);
+        res.redirect('/');
+    }
 }

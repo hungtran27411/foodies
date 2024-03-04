@@ -9,6 +9,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const routes = require('./routes');
 // Initialize Express app
 const app = express();
+const Restaurant = require('./models/restaurant');
 
 // Middleware for session management
 app.use(session({
@@ -119,6 +120,14 @@ app.get('/restaurants/:id/reservations', async (req, res) => {
     }
 });
 
+app.get('/restaurants/:id', async (req, res) => {
+    try {
+        const restaurant = await Restaurant.findById(req.params.id).exec();
+        res.render('restaurantDetails', { restaurant });
+    } catch (err) {
+        res.status(500).send('Error fetching restaurant details');
+    }
+});
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
