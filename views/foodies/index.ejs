@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>TITLE</title>
+    <title>Foodies Reservation</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
+    
 <nav>
     <img src="/images/images.jpg">
     <% if (user) { %>
@@ -15,6 +16,7 @@
     <a href="/logout">LOG OUT</a>
    
 </nav>
+
 <main>
     <h1>Welcome back, Here is a list of your reservation</h1>
     <table id="list">
@@ -34,8 +36,8 @@
             <td><%= doc.nameOnReserv %></td>
             <td><%= doc.numberOfGuest %></td>
             <td><%= doc.restaurantId.restName %></td>
-            <td><%= doc.typeOfFood %></td>
-            <td><%= doc.reviewRating || '' %></td>
+            <td><%= doc.restaurantId.typeOfFood %></td>
+            <td><%= doc.restaurantId.reviewRating %></td>
             <td>
                 <% if (doc._id) { %>
                 <a href="/foodies/<%= doc._id %>">DETAILS</a>

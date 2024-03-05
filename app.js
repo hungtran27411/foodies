@@ -55,7 +55,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
     done(null, user);
 });
-
 // Define a route for the root URL
 app.get('/foodies', (req, res) => {
     res.send('Welcome to Foodies!');
@@ -85,10 +84,12 @@ app.get('/logout', (req, res) => {
     res.redirect('/');
 });
 
+
 // Middleware for ensuring user is logged in
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
+        
     }
     res.redirect('/login');
 }
@@ -96,6 +97,7 @@ function isLoggedIn(req, res, next) {
 // Route for creating a reservation (requires authentication)
 app.post('/reservations', isLoggedIn, async (req, res) => {
     try {
+        console.log('made it here')
         const { restaurantId, date, time, partySize } = req.body;
         const reservation = await Reservation.create({
             user: req.user._id,
