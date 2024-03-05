@@ -1,26 +1,88 @@
-Link Here:
-https://ruby-perch-kilt.cyclic.app/foodies
+# Foodie Restaurant Reservation Application
+CRUD Operations and MVP Document
 
-OverView
-Restaurant reservation application allowing users to search for restaurants based on various criteria such as location, cuisine, price range, and availability.
-Users make reservations at their chosen restaurant for a specific date and time.
+Overview:
+Foodie allows users to make, view, update, and delete reservations at a restaurant.
 
-Include:
+# MVP Features:
+  Minimum: The product includes only essential features that address the core problem or need of the target users. Non-essential features are intentionally left out to streamline development.
 
-User Sign In: GMAIL OAUTH
+  Viable: The product is functional and usable, even if it lacks advanced features or polish. It should provide enough value to early adopters to encourage them to use it.
 
-Restaurant Search and Browse:
-Restaurants based on criteria like location, cuisine type, price range, and availability. They can view restaurant details, including menus, photos, reviews, and ratings.
+  Product: The MVP is a tangible product or application that users can interact with. It's not just a concept or prototype but a working solution that addresses a specific problem or fulfills a need.
 
-Reservation Booking: Users can select a restaurant, choose a date and time for their reservation, and specify the number of guests. They may also be able to request specific seating preferences or add special instructions.
+# Reservation Creation:
 
-Availability:
-The application will provide availability information for each restaurant, allowing users to see which time slots are available for reservation.
+  Users can create a reservation by providing their name, reservation date, and the number of people in their party.
 
-User Reviews and Ratings: Users can leave reviews and ratings for restaurants based on their dining experiences. This helps other users make informed decisions when choosing a restaurant.
+#  Reservation Viewing:
 
-Reservation UPDATE: Users can view, edit, or cancel their reservations. Restaurants can also manage reservations, including accepting, modifying, or canceling them.
+  Users can view all existing reservations.
+  
+# Reservation Updating:
 
-Admin Dashboard: Restaurant owners or administrators have access to a dashboard where they can manage restaurant details, view reservation analytics, and respond to customer reviews.
+  Users can update existing reservations to change details such as the name, date, or number of people.
+  
+# Reservation Deletion:
 
-Overall, a restaurant reservation application aims to streamline the reservation process, enhance the dining experience for customers, and help restaurants manage their bookings efficiently.
+  Users can delete existing reservations.
+
+# CRUD Operations:
+
+  Create:
+  Endpoint: /reserve
+  Method: POST
+  Request Body: { "name": "John Doe", "date": "2024-03-05", "numberOfPeople": 4 }
+  Response: Success message or error message
+
+Read:
+  Endpoint: /reservations
+  Method: GET
+  Response Body: List of reservations
+
+Update:
+  Endpoint: /reserve/:id
+  Method: PUT
+  Request Body: Updated reservation data (e.g., { "name": "Jane Doe", "date": "2024-03-06", "numberOfPeople": 6 })
+  Response: Success message or error message
+
+Delete:
+  Endpoint: /reserve/:id
+  Method: DELETE
+  Response: Success message or error message
+
+Database Schema:
+  Reservation:
+  id: ObjectId (automatically generated)
+  name: String
+  date: Date
+  numberOfPeople: Number
+
+Routes:
+  Create Reservation:
+    Endpoint: /reserve
+      Method: POST
+
+List Reservations:
+  Endpoint: /reservations
+    Method: GET
+
+Update Reservation:
+  Endpoint: /reserve/:id
+    Method: PUT
+
+Delete Reservation:
+  Endpoint: /reserve/:id
+    Method: DELETE
+    
+
+Authentication: Implement user authentication to secure reservation operations.
+
+Validation: Add validation for reservation data to ensure accuracy and completeness.
+Availability Check: Implement functionality to check the availability of seats for a given reservation date.
+Notifications: Send email or SMS notifications to users upon successful reservation creation or updates.
+Technologies Used:
+Node.js
+Express.js
+Mongoose 
+HTML/CSS (for frontend, not covered in this document)
