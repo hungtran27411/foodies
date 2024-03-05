@@ -1,4 +1,4 @@
-## Foodie's Restaurant Reservation Application
+# Foodie's Restaurant Reservation Application
 
 Link Here: https://ruby-perch-kilt.cyclic.app/foodies  
 
@@ -9,7 +9,7 @@ Overview:
 Foodie allows users to make, view, update, and delete reservations at a restaurant.
 
 # MVP Features:
-  Minimum: The product includes only essential features that address the core problem or need of the target users. Non-essential features are intentionally left out to streamline development.
+  Minimum: The product includes only essential features that address the core problem or need of the target users. Non-essential features are intentionally left out to   streamline development.
 
   Viable: The product is functional and usable, even if it lacks advanced features or polish. It should provide enough value to early adopters to encourage them to use it.
 
@@ -33,11 +33,11 @@ Foodie allows users to make, view, update, and delete reservations at a restaura
 
 # CRUD Operations:
 
-  Create:
-  Endpoint: /reserve
-  Method: POST
-  Request Body: { "name": "John Doe", "date": "2024-03-05", "numberOfPeople": 4 }
-  Response: Success message or error message
+Create:
+    Endpoint: /reserve
+    Method: POST
+    Request Body: { "name": "John Doe", "date": "2024-03-05", "numberOfPeople": 4 }
+    Response: Success message or error message
 
 Read:
   Endpoint: /reservations
