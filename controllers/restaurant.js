@@ -92,8 +92,9 @@ async function create(req, res) {
 async function updateRestName(req, res) {
 	try {
 		const filter = { _id: req.params.id }; // Assuming your ID field is _id
-		const updateRestName = { updateRestName: req.body.updateRestName }; // Update object containing the new nameOnReserv value
-		const updatedFoodie = await restaurantModel.findOneAndUpdate(filter, updateRestName, { new: true });
+		const updateRestName = await { updateRestName: req.body.updateRestName }; // Update object containing the new nameOnReserv value
+		const updatedFoodie = await restaurantModel.findOneAndUpdate(req.params.id, req.body, { new: true });
+        
 	} catch (err) {
 		console.log(err);
 		res.send(err);

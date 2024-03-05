@@ -27,9 +27,8 @@ async function index(req, res){
 	try {
 		// We want our model to go to the database and get all the movies
 		// .find({}) is mongoose model query method
-		const foodieDocumentsFromTheDB = await FoodieModel.find({})
-		const restaurantDocumentsFromTheDB = await restaurantModel.find({});
-		console.log(restaurantDocumentsFromTheDB) 
+		const foodieDocumentsFromTheDB = await FoodieModel.find({}).populate('restaurantId')
+		
 
 		
 		//const foodies = await Foodie.find().populate('restaurant');
@@ -39,7 +38,7 @@ async function index(req, res){
 		// movies/index is looking in the views folder for the ejs page
 		res.render('foodies/index', { 
 			foodieDocs: foodieDocumentsFromTheDB, 
-			restaurantDocs: restaurantDocumentsFromTheDB 
+			
 		})
 		
 		// movieDocs is now a variables inside of views/movies/index.ejs 
@@ -59,7 +58,7 @@ async function show(req, res) {
 		  const foodieFromTheDatabase = await FoodieModel
 											  .findById(req.params.id)
 										 	  .exec()
-											   .populate('restName'); 				
+												//.populate('restName'); 				
 										
 										
 	  
@@ -82,15 +81,15 @@ async function show(req, res) {
 // 1. Create a new reservation
 async function create(req, res) {
 	console.log(req.body, " <- is the contents of our form!")
-	req.body.nowShowing = !!req.body.nowShowing;
+
 	// req.body.cast = req.body.cast.trim();
 
 	// if (req.body.cast) req.body.cast = req.body.cast.split(/\s*,\s*/);
 
 	try {
 		const createdFoodieDoc = await FoodieModel.create(req.body); 
-		console.log(createdFoodieDoc);
-	  	res.redirect('foodies/new')
+		console.log('foodiedoc',createdFoodieDoc);
+	  	res.redirect('/foodies/new')
   
 	} catch (err) {
 	  console.log(err);
@@ -100,9 +99,10 @@ async function create(req, res) {
 // 3. Update
 async function updateName(req, res) {
 	try {
+		console.log(req.body, "i am here")
 		const filter = { _id: req.params.id }; // Assuming your ID field is _id
 		const updateName = { nameOnReserv: req.body.nameOnReserv }; // Update object containing the new nameOnReserv value
-		const updatedFoodie = await FoodieModel.findOneAndUpdate(filter, updateName, { new: true });
+		const updatedFoodie = await FoodieModel.findOneAndUpdate(req.params.id, req.body, { new: true });
 	} catch (err) {
 		console.log(err);
 		res.send(err);
@@ -135,7 +135,7 @@ async function deleteOne(req, res) {
 
 async function newFoodie(req, res) {
     try {
-        const restaurants = await restaurantModel.find({}, 'restName'); // Only fetch the restaurant names
+        const restaurants = await restaurantModel.find({},); // Only fetch the restaurant names
         res.render('foodies/new', { restaurants: restaurants });
     } catch (err) {
         console.log(err);

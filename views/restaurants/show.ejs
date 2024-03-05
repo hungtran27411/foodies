@@ -11,6 +11,8 @@
   <p>Address: <%= restaurant.restAdd %></p>
   <p>Phone Number: <%= restaurant.restPhone %></p>
   <p>Type of Food: <%= restaurant.typeOfFood %></p>
+  <form action="/restaurants/<%= restaurant.id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete restaurant</button>
   <!-- Other restaurant details as needed -->
 </body>
-</html>
+

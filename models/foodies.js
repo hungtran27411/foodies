@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const foodieSchema = new mongoose.Schema({
    
-   restName: {
+   restaurantId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Restaurant', // Reference the Restaurant model
       
@@ -20,7 +20,9 @@ const foodieSchema = new mongoose.Schema({
 
     
    },
-   
+   restaurantName: {
+      type: String,
+   }
    
 });
 

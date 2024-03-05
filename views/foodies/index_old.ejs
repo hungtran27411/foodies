@@ -13,10 +13,9 @@
     <a href="/foodies">All Reservations</a>
     <a href="/restaurants">All Restaurants</a>
     <a href="/logout">LOG OUT</a>
-   
+    
 </nav>
 <main>
-    <h1>Welcome back, Here is a list of your reservation</h1>
     <table id="list">
         <thead>
         <tr>
@@ -29,25 +28,34 @@
         </tr>
         </thead>
         <tbody>
-        <% foodieDocs.forEach(function(doc) { %>
+        <% foodieDocs.forEach(function(f) { %>
         <tr>
-            <td><%= doc.nameOnReserv %></td>
-            <td><%= doc.numberOfGuest %></td>
-            <td><%= doc.restaurantId.restName %></td>
-            <td><%= doc.typeOfFood %></td>
-            <td><%= doc.reviewRating || '' %></td>
+            <td><%= f.nameOnReserv %></td>
+            <td><%= f.numberOfGuest %></td>
             <td>
-                <% if (doc._id) { %>
-                <a href="/foodies/<%= doc._id %>">DETAILS</a>
-                <% } %>
+              <a href="/foodies/<%= f._id %>">DETAILS</a>
+              
+              </button>
             </td>
+            
         </tr>
         <% }); %>
+        </tbody> 
+        <tbody>
+          <% restaurantDocs.forEach(function(r) { %>
+          <tr>
+              <td><%= r.restName %></td> <!-- Assuming 'nameRest' is the populated field -->
+              <td><%= r.typeOfFood %></td> <!-- Make sure 'typeOfFood' exists in restaurantDocs -->
+              <td><%= r.reviewRating %></td> <!-- Make sure 'reviewRating' exists in restaurantDocs -->
+              <td>
+              </td>
+          </tr>
+          <% }); %>
         </tbody>
     </table>
     <% } else { %>
-        <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
-        <% } %>
+      <a href="/auth/google" class="login">LOG IN&nbsp;<img src="https://i.imgur.com/FHjYyi0.png"></a>
+      <% } %>
 </main>
 </body>
 </html>
